@@ -64,7 +64,7 @@ print(Tesla_news_3_description)
 
 
 # This will send a message to your phone number.
-
+# You can remove the Tesla_news_2, Tesla_news_3, Tesla_news_2_description and Tesla_news_3_description. from the message if you don't need it.
 
 if close_price_1 > close_price_2:
     message = client.messages.create(
