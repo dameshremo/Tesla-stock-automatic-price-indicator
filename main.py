@@ -2,12 +2,13 @@ import pandas as pd
 import requests
 from twilio.rest import Client
 
-account_sid = 'ACa6f547287077124615bc0304f7497455'
-auth_token = '5dffaab217eef737df69df327e4fc28d'
+#Replace the account_sid and auth_token from the details you get from Twilio account.
+account_sid = '*******************************'
+auth_token = '*********************************'
 client = Client(account_sid, auth_token)
 
-
-news_url = 'https://newsapi.org/v2/everything?q=Tesla&language=en&coutry=us&sortBy=publishedAt&apiKey=07d7128697cf4aaf8dbadefe3d6ee06d'
+#Replace the apikey with the actual API key that you get from newsapi
+news_url = 'https://newsapi.org/v2/everything?q=Tesla&language=en&coutry=us&sortBy=publishedAt&apiKey=*********'
 news = requests.get(news_url)
 latest_news = news.json()
 
@@ -16,11 +17,9 @@ STOCK = "TSLA"
 COMPANY_NAME = "Tesla Inc"
 FUNCTION = "TIME_SERIES_INTRADAY"
 
+#Replace the apikey with the actual API key that you get from alphavantage
 
-## STEP 1: Use https://www.alphavantage.co
-# When STOCK price increase/decreases by 5% between yesterday and the day before yesterday then print("Get News").
-
-url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=TSLA&interval=60min&apikey=EK0IRU6IDBOEEJ6D'
+url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=TSLA&interval=60min&apikey=************'
 r = requests.get(url)
 data = r.json()
 
@@ -48,8 +47,7 @@ Tesla_stock = round(abs(price))
 print(Tesla_stock)
 
 
-## STEP 2: Use https://newsapi.org
-# Instead of printing ("Get News"), actually get the first 3 news pieces for the COMPANY_NAME.
+#All the latest news and description of the news will be available in this section using print is optional
 Tesla_news_1 = latest_news['articles'][0]['title']
 Tesla_news_2 = latest_news['articles'][1]['title']
 Tesla_news_3 = latest_news['articles'][2]['title']
@@ -64,8 +62,8 @@ print(Tesla_news_3)
 print(Tesla_news_3_description)
 
 
-## STEP 3: Use https://www.twilio.com
-# Send a seperate message with the percentage change and each article's title and description to your phone number.
+
+# This will send a message to your phone number.
 
 
 if close_price_1 > close_price_2:
@@ -78,7 +76,7 @@ if close_price_1 > close_price_2:
              f'Brief:{Tesla_news_2_description}'
              f'Headline:{Tesla_news_3}'
              f'Brief:{Tesla_news_3_description}',
-        to='+919844379098'
+        to='+9198111111118'
     )
 else:
     message = client.messages.create(
@@ -90,21 +88,12 @@ else:
              f'Brief:{Tesla_news_2_description}'
              f'Headline:{Tesla_news_3}'
              f'Brief:{Tesla_news_3_description}',
-    to = '+919844379098'
+    to = '+9191111111118'
     )
+    
 
 
 
 
 
-#Optional: Format the SMS message like this: 
-"""
-TSLA: 🔺2%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-or
-"TSLA: 🔻5%
-Headline: Were Hedge Funds Right About Piling Into Tesla Inc. (TSLA)?. 
-Brief: We at Insider Monkey have gone over 821 13F filings that hedge funds and prominent investors are required to file by the SEC The 13F filings show the funds' and investors' portfolio positions as of March 31st, near the height of the coronavirus market crash.
-"""
 
